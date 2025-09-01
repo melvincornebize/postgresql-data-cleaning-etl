@@ -1,0 +1,28 @@
+INSERT INTO patients_clean (
+    id, age, gender, blood_pressure, cholesterol_level, exercise_habits,
+    is_smoker, has_family_heart_disease, has_diabetes, bmi,
+    has_high_blood_pressure, low_hdl_cholesterol, high_ldl_cholesterol,
+    drinks_alcohol, stress_level, sleep_hours, sugar_consumption,
+    triglyceride_level
+)
+SELECT
+    NULL, --Let the SERIAL PRIMARY KEY auto-generate the ID
+    CASE WHEN age = '' THEN NULL ELSE CAST(CAST(age AS FLOAT) AS INTEGER) END,
+    gender,
+    CASE WHEN blood_pressure = '' THEN NULL ELSE CAST(CAST(blood_pressure AS FLOAT) AS INTEGER) END,
+    CASE WHEN cholesterol_level = '' THEN NULL ELSE CAST(CAST(cholesterol_level AS FLOAT) AS INTEGER) END,
+    CASE WHEN exercise_habits = '' THEN NULL ELSE CAST(UPPER(exercise_habits) AS activity_level) END,
+    CASE WHEN UPPER(smoking) = 'YES' THEN true ELSE false END,
+    CASE WHEN UPPER(family_heart_disease) = 'YES' THEN true ELSE false END,
+    CASE WHEN UPPER(diabetes) = 'YES' THEN true ELSE false END,
+    CASE WHEN bmi = '' THEN NULL ELSE CAST(bmi AS FLOAT) END,
+    CASE WHEN UPPER(high_blood_pressure) = 'YES' THEN true ELSE false END,
+    CASE WHEN low_hdl_cholesterol = '' THEN NULL ELSE CAST(CAST(low_hdl_cholesterol AS FLOAT) AS INTEGER) END,
+    CASE WHEN high_ldl_cholesterol = '' THEN NULL ELSE CAST(CAST(high_ldl_cholesterol AS FLOAT) AS INTEGER) END,
+    CASE WHEN UPPER(alcohol_consumption) = 'YES' THEN true ELSE false END,
+    CASE WHEN stress_level = '' THEN NULL ELSE CAST(CAST(stress_level AS FLOAT) AS INTEGER) END,
+    CASE WHEN sleep_hours = '' THEN NULL ELSE CAST(sleep_hours AS FLOAT) END,
+    CASE WHEN sugar_consumption = '' THEN NULL ELSE CAST(CAST(sugar_consumption AS FLOAT) AS INTEGER) END,
+    CASE WHEN triglyceride_level = '' THEN NULL ELSE CAST(CAST(triglyceride_level AS FLOAT) AS INTEGER) END
+FROM
+    patients_source;
