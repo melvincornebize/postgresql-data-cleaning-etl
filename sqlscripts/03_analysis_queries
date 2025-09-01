@@ -1,0 +1,30 @@
+-- Query 1: Average age of patients with heart disease against those without?
+SELECT
+    has_heart_disease,
+    AVG(age) AS average_age
+FROM
+    patients_clean
+GROUP BY
+    has_heart_disease;
+
+-- Query 2: Most common exercise habits in this dataset?
+SELECT
+    exercise_habits,
+    COUNT(*) AS number_of_patients
+FROM
+    patients_clean
+GROUP BY
+    exercise_habits
+ORDER BY
+    number_of_patients DESC;
+
+-- Query 3: How many smokers vs. non-smokers have heart disease?
+SELECT
+    is_smoker,
+    has_heart_disease,
+    COUNT(*) AS number_of_patients
+FROM
+    patients_clean
+GROUP BY
+    is_smoker,
+    has_heart_disease;
